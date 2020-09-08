@@ -1,0 +1,11 @@
+{
+    "name": "yakov/mini-app",
+    "description": "mini-app",
+    "authors": [
+        {
+            "name": "Yakov Gulyuta",
+            "email": "yakovgulyuta@yandex.ru"
+        }
+    ],
+    "require": {}
+}
