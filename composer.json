@@ -7,5 +7,16 @@
             "email": "yakovgulyuta@yandex.ru"
         }
     ],
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "kint-php/kint": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\": "main/Core",
+            "Controllers\\": "protected/Controllers",
+            "Models\\": "protected/Models",
+            "Views\\": "protected/Views"
+        }
+    }
 }
