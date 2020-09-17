@@ -11,6 +11,7 @@ class App
    */
   public static $app;
 
+
   /**
    * App constructor.
    */
@@ -19,6 +20,7 @@ class App
     session_start();
     $this::$app = Registry::getInstance();
     $this->setParams();
+    Router::run();
   }
 
   private function setParams()
