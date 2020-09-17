@@ -4,12 +4,10 @@
 namespace Core;
 
 
-
-
 class Router
 {
   private static $routes = [];
-  private static $route;
+  private static $route = [];
 
 
   public static function run()
@@ -48,8 +46,19 @@ class Router
     $uri = $_SERVER['REQUEST_URI'];
     $uri = trim($uri, '/');
     foreach (self::$routes as $pattern => $route) {
-      if (preg_match("#{$pattern}#", $uri, )) {
-        self::$route = $route;
+      if (preg_match("#{$pattern}#", $uri, $matches)) {
+//        return print_r($matches);
+
+//        self::$route['uri'] = $matches[0];
+        $parts = explode('::', $route[0]);
+        self::$route['Controller'] = $parts[0];
+        self::$route['action'] = $parts[1];
+        if (count($matches) > 0) {
+          foreach ($matches as $r => $v) {
+            self::$route[$r] = $v;
+          }
+          self::$route['mask'] = $matches[0];
+        }
         return true;
       }
     }
@@ -59,6 +68,9 @@ class Router
   private static function createController()
   {
     $controllerPath = ROOT . 'protected/controller/';
-    print_r(self::$route) ;
+    echo '<pre>';
+    print_r(self::$route);
+    echo '</pre>';
+
   }
 }
