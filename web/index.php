@@ -1,3 +1,5 @@
 <?php
+use Core\App;
 require "../config/bootstrap.php";
-d($_SERVER);
+$app = new App();
+d($app::$app->getProps());
