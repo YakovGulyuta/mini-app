@@ -4,25 +4,21 @@
 namespace Core;
 
 
+
+
 class Router
 {
   private static $routes = [];
   private static $route;
 
-//  public function __construct()
-//  {
-//    $this->getRoutes();
-//  }
 
   public static function run()
   {
     self::setRoutes();
-    if (self::matchRoute()) {
-      d(self::$route);
-    } else {
-      echo 'no';
+    if (!self::matchRoute()) {
+      throw new \Exception('Такого адреса не существует');
     }
-
+    self::createController();
   }
 
   /**
@@ -47,16 +43,22 @@ class Router
     self::$routes = $routes;
   }
 
-  private static function matchRoute()
+  private static function matchRoute(): bool
   {
     $uri = $_SERVER['REQUEST_URI'];
     $uri = trim($uri, '/');
     foreach (self::$routes as $pattern => $route) {
-      if (preg_match("#{$pattern}#", $uri, $mathes)) {
-        self::$route = $mathes;
+      if (preg_match("#{$pattern}#", $uri, )) {
+        self::$route = $route;
         return true;
       }
     }
     return false;
+  }
+
+  private static function createController()
+  {
+    $controllerPath = ROOT . 'protected/controller/';
+    print_r(self::$route) ;
   }
 }
