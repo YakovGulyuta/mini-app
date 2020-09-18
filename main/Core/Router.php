@@ -89,7 +89,7 @@ class Router
     if (!class_exists($className)) {
       throw new \Exception("Контроллера $className  не существует");
     }
-    $controllerObj = new $className();
+    $controllerObj = new $className(self::$route);
     if (!method_exists($controllerObj, $action . 'Action')) {
       throw new \Exception("Такого метода $action  не существует");
     }
