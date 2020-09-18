@@ -53,11 +53,9 @@ class Router
         $parts = explode('::', $route[0]);
         self::$route['Controller'] = $parts[0];
         self::$route['action'] = $parts[1];
+        array_shift($matches);
         if (count($matches) > 0) {
-          foreach ($matches as $r => $v) {
-            self::$route[$r] = $v;
-          }
-          self::$route['mask'] = $matches[0];
+          self::$route['parameters'] = $matches;
         }
         return true;
       }
@@ -67,10 +65,24 @@ class Router
 
   private static function createController()
   {
-    $controllerPath = ROOT . 'protected/controller/';
-    echo '<pre>';
-    print_r(self::$route);
-    echo '</pre>';
+
+    $controller = self::$route['Controller'];
+    $action = self::$route['action'];
+    $vars = self::$route['parameters'];
+//    d($vars);exit;
+    $controllerPath = 'Controllers\\';
+    $className = $controllerPath . $controller . 'Controller';
+    if (!class_exists($className)) {
+      throw new \Exception("Контроллера $className  не существует");
+    }
+    $controllerObj = new $className();
+    if (!method_exists($controllerObj, $action . 'Action')) {
+      throw new \Exception("Такого метода $action  не существует");
+    }
+    call_user_func([$controllerObj, $action . 'Action']);
+
+//    echo '<pre>';
+//    echo '</pre>';
 
   }
 }

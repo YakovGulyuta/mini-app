@@ -1,8 +1,8 @@
 <?php
 return [
-    '^$' => ['Default::index'],
-    '^page$' => ['Page::index'],
-    '^page/list$' => ['Page::list'],
-//    '^page/list/views/land$' => ['Page::list'],
-    '^page/list/([a-z]+)/([0-9]+)$' => ['Page::view']
+  '^$' => ['Default::index'],
+  '^page/([\d+]+$)' => ['Page::view'],
+  '^page/([\w-]+)$' => ['Page::alias'],
+  '^page/([\w-]+)/([\d+]+)$' => ['Page::rand'],
+  '^page$' => ['Page::list']
 ];
