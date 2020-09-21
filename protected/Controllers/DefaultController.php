@@ -4,10 +4,12 @@
 namespace Controllers;
 
 
-class DefaultController
+use Core\Base\Controller;
+
+class DefaultController extends Controller
 {
   public function indexAction()
   {
-      echo __METHOD__;
+      $this->render('index', ['name' => 'Yakov', 'female' => 'Gulyuta']);
   }
 }

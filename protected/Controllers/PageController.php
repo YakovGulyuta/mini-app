@@ -8,39 +8,28 @@ use Core\Base\Controller;
 
 class PageController extends Controller
 {
+
   public function listAction()
   {
-    echo '<pre>';
-    print_r($this->routes);
-    echo '</pre>';
-    echo __METHOD__;
-    $this->render('index');
+
+    $this->render('index', []);
   }
 
-  public function viewAction()
+  public function viewAction($id)
   {
-    echo '<pre>';
-    print_r($this->routes);
-    echo '</pre>';
-    echo __METHOD__;
-    $this->render('view');
+    print_r($id);
+    $this->render('view', []);
   }
 
   public function aliasAction()
   {
-    echo '<pre>';
-    print_r($this->routes);
-    echo '</pre>';
-    echo __METHOD__;
-    $this->render('alias');
+    $this->render('alias', []);
   }
 
-  public function randAction()
+  public function randAction($alias, $id)
   {
-    echo '<pre>';
-    print_r($this->routes);
-    echo '</pre>';
-    echo __METHOD__;
-    $this->render('rand');
+    print_r($id);
+    print_r($alias);
+    $this->render('rand', []);
   }
 }

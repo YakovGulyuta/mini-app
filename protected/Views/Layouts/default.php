@@ -1,3 +1,4 @@
+<?php ///* @var $this \Core\Base\View */ ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,6 +9,7 @@
   <title>Default</title>
 </head>
 <body>
-<h1>Default view</h1>
+<h1>Default layout</h1>
+<?= $content ?>
 </body>
 </html>

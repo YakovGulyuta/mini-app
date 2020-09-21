@@ -15,6 +15,10 @@ class Router
    */
   private static $route = [];
 
+  /**
+   * @var array
+   */
+  private static $get = [];
 
   /**
    * @throws \Exception
@@ -71,12 +75,11 @@ class Router
         self::$route['action'] = $parts[1];
         array_shift($matches);
         if (count($matches) > 0) {
-          foreach ($matches as $k => $v){
-            if (is_string($k)){
-              self::$route['GET'][$k] = $v;
+          foreach ($matches as $k => $v) {
+            if (is_string($k)) {
+              self::$get[$k] = $v;
             }
           }
-
         }
         return true;
       }
@@ -91,18 +94,23 @@ class Router
   {
 
     $controller = self::$route['Controller'];
-    $action = self::$route['action'];
-    $vars = self::$route['parameters'];
+    $action = self::$route['action'] . 'Action';
+    $vars = self::$get;
+
     $controllerPath = 'Controllers\\';
     $className = $controllerPath . $controller . 'Controller';
     if (!class_exists($className)) {
       throw new \Exception("Контроллера $className  не существует");
     }
-    $controllerObj = new $className(self::$route);
-    if (!method_exists($controllerObj, $action . 'Action')) {
+    $controllerObj = new $className(self::$route, $vars);
+    if (!method_exists($controllerObj, $action)) {
       throw new \Exception("Такого метода $action  не существует");
     }
-    call_user_func([$controllerObj, $action . 'Action']);
+    if (!empty($vars)){
+      call_user_func_array([$controllerObj, $action], $vars);
+    } else {
+      call_user_func([$controllerObj, $action]);
+    }
 
   }
 }

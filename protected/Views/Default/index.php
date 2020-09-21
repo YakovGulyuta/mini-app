@@ -1,1 +1,1 @@
-<?php
+<h1>This is Default Index</h1>
