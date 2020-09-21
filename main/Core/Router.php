@@ -60,14 +60,23 @@ class Router
   {
     $uri = $_SERVER['REQUEST_URI'];
     $uri = trim($uri, '/');
+//    if (mb_strpos($uri,'?=')){
+//      str_replace('?=','/');
+//    }
+//    $url = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
     foreach (self::$routes as $pattern => $route) {
-      if (preg_match("#{$pattern}#", $uri, $matches)) {
+      if (preg_match("#^{$pattern}$#", $uri, $matches)) {
         $parts = explode('::', $route[0]);
         self::$route['Controller'] = $parts[0];
         self::$route['action'] = $parts[1];
         array_shift($matches);
         if (count($matches) > 0) {
-          self::$route['parameters'] = $matches;
+          foreach ($matches as $k => $v){
+            if (is_string($k)){
+              self::$route['GET'][$k] = $v;
+            }
+          }
+
         }
         return true;
       }

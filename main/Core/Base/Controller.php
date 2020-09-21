@@ -8,7 +8,7 @@ use Core\Router;
 
 abstract class Controller
 {
-  public $routes;
+  public $routes = [];
 
   /**
    * Controller constructor.
@@ -16,5 +16,14 @@ abstract class Controller
   public function __construct($routers)
   {
     $this->routes = $routers;
+  }
+
+  public function render($view, array $attributes = [])
+  {
+    extract($this->routes['GET']);
+//    echo '<br>' . $id;
+//    echo '<br>' . $alias;
+    (new View($this->routes))->getView();
+//    echo '<br>' . 'Вид: ' . $view;
   }
 }

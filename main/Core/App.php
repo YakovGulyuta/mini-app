@@ -25,7 +25,7 @@ class App
 
   private function setParams()
   {
-    $props = require_once CONF . 'config.php';
+    $props = require_once CONF . 'parameters.php';
     if (isset($props)) {
       foreach ($props as $k => $v) {
         $this::$app->setProps($k, $v);
