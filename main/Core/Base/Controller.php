@@ -19,7 +19,7 @@ abstract class Controller
   /**
    * @var
    */
-  public $get;
+  public $get;//Тестовый, не используется
 
   /**
    * Controller constructor.

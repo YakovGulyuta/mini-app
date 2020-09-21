@@ -18,7 +18,7 @@ class PageController extends Controller
   public function viewAction($id)
   {
     print_r($id);
-    $this->render('view', []);
+    $this->render('view', ['id' => $id]);
   }
 
   public function aliasAction()
